@@ -1,0 +1,25 @@
+{
+  "name": "hubot-heartbot",
+  "description": "A shot of love for your favorite chat client.",
+  "author": "Kamal Nasser <kamal@digitalocean.com>",
+  "version": "1.0.5",
+  "main": "index.coffee",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/digitalocean/heartbot"
+  },
+  "bugs": {
+    "url": "https://github.com/digitalocean/heartbot/issues"
+  },
+  "keywords": [
+    "hubot",
+    "valentines",
+    "bot"
+  ],
+  "license": "MIT",
+  "dependencies": {
+    "forecast": "^0.2.1",
+    "giphy": "0.0.4",
+    "js-yaml": "^3.2.5"
+  }
+}

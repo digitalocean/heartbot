@@ -1,0 +1,121 @@
+---
+probability: 0.6
+interactions:
+    - pattern:
+        regex: >-
+            ((what|who)('?s| is) |\?)##heartbot##
+      event: say
+      message: I'm Heartbot, a Hubot integration that is here to bring a little love and joy into the room.
+      probability: 1
+
+    - pattern:
+        regex: >-
+          (hi|hello|hey)(!|,)? ##heartbot##!?
+      event: say
+      message: Hi $user!
+      probability: 1
+
+    - pattern:
+        regex: >-
+           (\W|^)((sad)|(\:\())(\W|$)
+      event: say
+      message:
+        - >-
+          *hugs $user and links http://thenicestplaceontheinter.net*
+        - $user, https://i.imgur.com/l1ffb.gif
+        - hey, $user! https://i.imgur.com/hNsx8Fu.gif
+        - >-
+          $user: http://media.giphy.com/media/12CmDbPafGzs3K/giphy.gif
+        - Turn that frown upside down! :)
+
+    - pattern:
+        regex: (\W|^)cold(\W|$)
+        options: i
+      event: forecast
+      message:
+        - >-
+          $user: for comparison, it's currently $temperature° $units in Siberia
+        - It could be worse. It’s currently $temperature° $units in Oymyakon, Russia
+      location:
+        latitude: 63.460833
+        longitude: 142.785833
+      units: C
+
+    - pattern:
+        regex: (\W|^)(good ?)?bye(\W|$)
+        options: i
+      event: say
+      message: >-
+        Baby, come back! https://www.youtube.com/embed/DnfSoaJxe3Y
+
+    - pattern:
+        regex: >-
+          ((i )?hate( you)?|(i don'?t like you( anymore)?)),? ##heartbot##
+      event: say
+      message:
+        - >-
+          :( but...but I made you a cake... http://bit.ly/1D3FTD6
+        - >-
+          $user: https://i.imgur.com/hdW2w.gif
+
+    - pattern:
+        regex: >-
+          (i )?love( you)? ##heartbot##
+      event: say
+      message:
+        - aww! I love you too, $user <3
+        - <3 $user <3
+
+    - pattern:
+        regex: (i )?love you all
+      event: say
+      messageType: emote
+      message: group hug!
+
+    - pattern:
+        regex: >-
+          (\W|^)##heartbot##\+\+
+      event: say
+      message: You like me! You really like me!
+
+    - pattern:
+        regex: (\W|^)(haha|lol|rofl)(\W|$)
+      event: giphy
+      tag: giggling
+      message: >-
+        $user: $gif
+      probability: 0.4
+
+    - pattern:
+        regex: (\W|^)tired(\W|$)
+      event: giphy
+      tag: lazy sloth
+      message: >-
+        $user: $gif
+
+    - pattern:
+        regex: (\W|^)puppy me(\W|$)
+      event: giphy
+      tag: cute puppy
+      message: >-
+        $user: $gif
+      probability: 1
+
+    - pattern:
+        regex: (\W|^)kitt(y|en) me(\W|$)
+      event: giphy
+      tag: kitty
+      message: >-
+        $user: $gif
+      probability: 1
+
+    - pattern:
+        regex: (\W|^)ugh(\W|$)
+      event: say
+      message: would you like a hug, $user?
+      probability: 0.2
+
+    - pattern:
+        regex: (\W|^)hot(\W|$)
+      event: say
+      message: you sure are.
