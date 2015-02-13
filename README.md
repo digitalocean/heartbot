@@ -1,4 +1,4 @@
-# ![](heartbot.png) Heartbot
+# <img src="https://raw.githubusercontent.com/digitalocean/heartbot/master/heartbot.png" height="36" width="36"> Heartbot
 
 Heartbot is a [Hubot](https://hubot.github.com/) integration that can be plugged into Slack, Hipchat, IRC, or other chat clients. Once installed, type things like "ugh", ":(", or "kitty me" and Heartbot will bring a little love and joy into the room. Spread the love on Twitter with #heartbot
 
