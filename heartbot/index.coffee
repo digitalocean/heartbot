@@ -28,7 +28,7 @@ module.exports = (_config, robot) ->
     regex = pattern.regex.replace '##heartbot##', regexEscape robot.name
     trigger = interaction.trigger or 'hear'
 
-    robot[trigger] new RegExp(regex, pattern.options or ''), do (event, interaction, callback) ->
+    robot[trigger] new RegExp(regex, pattern.options or 'i'), do (event, interaction, callback) ->
       ->
         if event._heartbot_first_run or Math.random() < (interaction.probability or config.probability)
           callback.apply @, arguments
