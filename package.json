@@ -2,7 +2,7 @@
   "name": "hubot-heartbot",
   "description": "A shot of love for your favorite chat client.",
   "author": "Kamal Nasser <kamal@digitalocean.com>",
-  "version": "1.0.5",
+  "version": "1.0.6",
   "main": "index.coffee",
   "repository": {
     "type": "git",
