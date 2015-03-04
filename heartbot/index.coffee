@@ -1,8 +1,12 @@
 fs = require 'fs'
+yaml = require 'js-yaml'
 path = require 'path'
 
 config = {}
 events = {}
+
+hubotPath = module.parent.filename
+hubotPath = path.dirname hubotPath for [1..3]
 
 {regexEscape} = require path.join '..', 'lib', 'common.coffee'
 
@@ -12,24 +16,33 @@ for event in fs.readdirSync(eventsPath).sort()
 
 module.exports = (_config, robot) ->
   config = _config
-  if not config.interactions?.length
+  if not config.patterns?.length
     robot.logger.warning 'No heartbot interactions configured.'
     return
 
-  config.interactions.forEach (interaction) ->
-    {event, pattern} = interaction
-    if not events.hasOwnProperty event
-      console.log "Unknown event #{event}"
+  config.patterns.forEach (pattern) ->
+    patternPath = path.join hubotPath, pattern
+    try
+      patternFile = yaml.safeLoad fs.readFileSync patternPath, 'utf8'
+    catch err
+      console.error "An error occurred while trying to load Heartbot's interactions."
+      console.error err
       return
 
-    event = new events[event] interaction
-    event._heartbot_first_run = true
-    callback = event.process
-    regex = pattern.regex.replace '##heartbot##', regexEscape robot.name
-    trigger = interaction.trigger or 'hear'
+    patternFile.interactions.forEach (interaction) ->
+      {event, pattern} = interaction
+      if not events.hasOwnProperty event
+        console.log "Unknown event #{event}"
+        return
 
-    robot[trigger] new RegExp(regex, pattern.options or 'i'), do (event, interaction, callback) ->
-      ->
-        if event._heartbot_first_run or Math.random() < (interaction.probability or config.probability)
-          callback.apply @, arguments
-          event._heartbot_first_run = false
+      event = new events[event] interaction
+      event._heartbot_first_run = true
+      callback = event.process
+      regex = pattern.regex.replace '##heartbot##', regexEscape robot.name
+      trigger = interaction.trigger or 'hear'
+
+      robot[trigger] new RegExp(regex, pattern.options or 'i'), do (event, interaction, callback) ->
+        ->
+          if event._heartbot_first_run or Math.random() < (interaction.probability or config.probability)
+            callback.apply @, arguments
+            event._heartbot_first_run = false
