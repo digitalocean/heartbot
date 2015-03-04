@@ -20,6 +20,15 @@ module.exports = (_config, robot) ->
     robot.logger.warning 'No heartbot interactions configured.'
     return
 
+  if config.eventsPath?.length
+    externalEventsPath = path.join hubotPath, config.eventsPath
+    for event in fs.readdirSync(externalEventsPath).sort()
+      events[event.replace /\.coffee$/, ''] = require path.join externalEventsPath, event
+  else
+    robot.logger.warning 'No external events path defined.'
+    return
+
+
   config.patterns.forEach (pattern) ->
     patternPath = path.join hubotPath, pattern
     try
