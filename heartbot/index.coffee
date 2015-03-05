@@ -16,18 +16,19 @@ for event in fs.readdirSync(eventsPath).sort()
 
 module.exports = (_config, robot) ->
   config = _config
-  if not config.patterns?.length
-    robot.logger.warning 'No heartbot interactions configured.'
-    return
 
   if config.events?.length
-    externalEventsPath = path.join hubotPath, config.events
-    for event in fs.readdirSync(externalEventsPath).sort()
-      events[event.replace /\.coffee$/, ''] = require path.join externalEventsPath, event
+    config.events.forEach (externalEvents) ->
+      eventPath = path.join hubotPath, externalEvents
+      eventName = externalEvents.replace /(.)+\//, ''
+      events[eventName.replace /\.coffee$/, ''] = require path.join hubotPath, externalEvents
   else
     robot.logger.warning 'No custom events defined.'
     return
 
+  if not config.patterns?.length
+    robot.logger.warning 'No heartbot interactions configured.'
+    return
 
   config.patterns.forEach (pattern) ->
     patternPath = path.join hubotPath, pattern
