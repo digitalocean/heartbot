@@ -20,8 +20,8 @@ module.exports = (_config, robot) ->
   if config.events?.length
     config.events.forEach (externalEvents) ->
       eventPath = path.join hubotPath, externalEvents
-      eventName = externalEvents.replace /(.)+\//, ''
-      events[eventName.replace /\.coffee$/, ''] = require path.join hubotPath, externalEvents
+      eventFile = externalEvents.replace /(.)+\//, ''
+      events[eventFile.replace /\.coffee$/, ''] = require path.join hubotPath, externalEvents
   else
     robot.logger.warning 'No custom events defined.'
     return
